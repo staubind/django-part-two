@@ -1,11 +1,11 @@
-# import our class
-from second_app.models import User
-
 # set up django for stand alone stuff
 import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'second_project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE','second_project.settings')
+
 import django
 django.setup()
+# import our class (must come after we've set up django)
+from second_app.models import User
 
 # import and setup faker
 from faker import Faker
@@ -21,9 +21,13 @@ def populate(n=20):
                         last=fake_last,
                         email=fake_email)
         print(new_user)
+        new_user.save()
         # test to see if it was working
         # print({'first': fake_first,
         #         'last': fake_last,
         #         'email': fake_email})
 
-populate(1)
+if __name__ == '__main__':
+    print('populating script!')
+    populate(20)
+    print('populating complete')
